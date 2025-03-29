@@ -1,0 +1,43 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-lg p-4 border-0 rounded-3">
+        <h4 class="fw-bold text-primary">➕ Yangi savol qo'shish</h4>
+        <p class="text-muted">Test: <strong>{{ quiz.title }}</strong></p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Savol matni</label>
+                <textarea class="form-control rounded-3" name="text" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Variantlar</label>
+                <input type="text" class="form-control rounded-3 mb-2" name="option_a" placeholder="🅰 A variant" required>
+                <input type="text" class="form-control rounded-3 mb-2" name="option_b" placeholder="🅱 B variant" required>
+                <input type="text" class="form-control rounded-3 mb-2" name="option_c" placeholder="🇨 C variant" required>
+                <input type="text" class="form-control rounded-3" name="option_d" placeholder="🇩 D variant" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">✅ To‘g‘ri javob</label>
+                <select class="form-select rounded-3" name="answer" required>
+                    <option value="" disabled selected>Tanlang</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3">
+                <button type="submit" class="btn btn-success px-4">✅ Saqlash</button>
+                <a href="{% url 'dashboard:quiz_detail' quiz.id %}" class="btn btn-outline-secondary px-4">⬅️ Ortga</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

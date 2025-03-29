@@ -1,0 +1,59 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h4 class="fw-bold text-primary">➕ Yangi Quiz Qo'shish</h4>
+
+    <div class="card shadow-lg p-4 border-0 rounded-3">
+        <form action="{% url 'dashboard:add' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Quiz nomi -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">📌 Quiz nomi</label>
+                <input type="text" class="form-control" name="title" placeholder="Quiz nomini kiriting" required>
+            </div>
+
+            <!-- Sinf -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">🏫 Sinf</label>
+                <input type="number" class="form-control" name="class_number" placeholder="Sinfni kiriting" required>
+            </div>
+
+            <!-- Rasim yuklash -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">🖼️ Rasim</label>
+                <input class="form-control" type="file" id="formFile" name="image">
+            </div>
+
+            <!-- Fan nomi (Select) -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">📖 Fan</label>
+                <select class="form-select" name="subject" required>
+                    <option value="">📚 Fan tanlang</option>
+                    <option value="Matematika">Matematika</option>
+                    <option value="Fizika">Fizika</option>
+                    <option value="Kimyo">Kimyo</option>
+                    <option value="Biologiya">Biologiya</option>
+                    <option value="Ona tili">Ona tili</option>
+                    <option value="Adabiyot">Adabiyot</option>
+                    <option value="Tarix">Tarix</option>
+                    <option value="Ingliz tili">Ingliz tili</option>
+                    <option value="Boshqa">Boshqa</option>
+                </select>
+            </div>
+
+            <!-- Quiz haqida (Description) -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">📄 Tavsif</label>
+                <textarea class="form-control" name="description" rows="3" placeholder="Quiz haqida ma’lumot..." required></textarea>
+            </div>
+
+            <div class="d-flex gap-3 justify-content-center">
+                <button type="submit" class="btn btn-primary px-4">✅ Saqlash</button>
+                <a href="{% url 'dashboard:index' %}" class="btn btn-outline-secondary px-4">⬅️ Bekor qilish</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h4 class="fw-bold">✏️ Savolni Tahrirlash</h4>
+
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      <!-- Savol matni -->
+      <div class="mb-3">
+        <label class="form-label">Savol</label>
+        <textarea class="form-control" name="text" required>{{ question.text }}</textarea>
+      </div>
+
+      <!-- Variantlar -->
+      <div class="mb-3">
+        <label class="form-label">Variantlar</label>
+        <input type="text" class="form-control mb-2" name="option_a" value="{{ question.option_a }}" required>
+        <input type="text" class="form-control mb-2" name="option_b" value="{{ question.option_b }}" required>
+        <input type="text" class="form-control mb-2" name="option_c" value="{{ question.option_c }}" required>
+        <input type="text" class="form-control" name="option_d" value="{{ question.option_d }}" required>
+      </div>
+
+      <!-- To'g'ri javob -->
+      <div class="mb-3">
+        <label class="form-label">To‘g‘ri javob</label>
+        <select class="form-select" name="answer" required>
+          <option value="A" {% if question.answer == "A" %}selected{% endif %}>A</option>
+          <option value="B" {% if question.answer == "B" %}selected{% endif %}>B</option>
+          <option value="C" {% if question.answer == "C" %}selected{% endif %}>C</option>
+          <option value="D" {% if question.answer == "D" %}selected{% endif %}>D</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success">💾 Saqlash</button>
+    </form>
+</div>
+{% endblock %}

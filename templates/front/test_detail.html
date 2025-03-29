@@ -1,0 +1,69 @@
+{% extends 'front/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">{{ quiz.title }}</h2>
+        <p id="timer" class="fs-5 text-danger fw-bold">⏳ 15:00</p>
+    </div>
+
+    <div class="alert alert-info">
+        <p class="mb-0">{{ quiz.description }}</p>
+    </div>
+
+    <form id="quiz-form" action="{% url 'main:submit_quiz' quiz.id %}" method="POST">
+        {% csrf_token %}
+
+        {% for question in questions %}
+        <div class="card shadow-sm mb-3 border-0">
+            <div class="card-body">
+                <h5 class="fw-bold">{{ forloop.counter }}. {{ question.text }}</h5>
+                <div class="mt-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="A" id="q{{ question.id }}_A">
+                        <label class="form-check-label" for="q{{ question.id }}_A">A) {{ question.option_a }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="B" id="q{{ question.id }}_B">
+                        <label class="form-check-label" for="q{{ question.id }}_B">B) {{ question.option_b }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="C" id="q{{ question.id }}_C">
+                        <label class="form-check-label" for="q{{ question.id }}_C">C) {{ question.option_c }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="D" id="q{{ question.id }}_D">
+                        <label class="form-check-label" for="q{{ question.id }}_D">D) {{ question.option_d }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg px-5 fw-bold">✅ Testni Yakunlash</button>
+        </div>
+    </form>
+</div>
+
+<!-- Taymer & Avto-Submit JavaScript -->
+<script>
+    let timeLeft = 15 * 60; // 15 daqiqa
+    let timerDisplay = document.getElementById("timer");
+
+    function updateTimer() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerDisplay.innerHTML = `⏳ ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (timeLeft <= 0) {
+            document.getElementById("quiz-form").submit();
+        } else {
+            timeLeft--;
+            setTimeout(updateTimer, 1000);
+        }
+    }
+
+    updateTimer();
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Bog‘lanishlar</h4>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Bog‘lanish ma’lumotlari</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ism</th>
+                        <th>Email</th>
+                        <th>Xabar</th>
+                        <th>Vaqt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.message }}</td>
+                        <td>{{ contact.time | date:"d-m-Y H:i:s" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Bog‘lanishlar yo‘q</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

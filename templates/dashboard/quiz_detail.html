@@ -1,0 +1,46 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold">📚 {{ quiz.title }}</h4>
+        <form action="{% url 'dashboard:delete_quiz' quiz.id %}" method="POST" onsubmit="return confirm('Ushbu quizni o‘chirishni istaysizmi?');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">🗑️ Quizni o‘chirish</button>
+        </form>
+    </div>
+
+    <div class="card shadow-sm mb-4 p-3">
+        <p><strong>📖 Fan:</strong> {{ quiz.subject }}</p>
+        <p>{{ quiz.description }}</p>
+    </div>
+
+    <h5 class="mt-4">📌 Savollar ro'yxati:</h5>
+
+    {% for question in quiz.questions.all %}
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">❓ {{ question.text }}</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">A) {{ question.option_a }}</li>
+                <li class="list-group-item">B) {{ question.option_b }}</li>
+                <li class="list-group-item">C) {{ question.option_c }}</li>
+                <li class="list-group-item">D) {{ question.option_d }}</li>
+            </ul>
+            <p class="mt-2"><strong>✅ To‘g‘ri javob:</strong> {{ question.answer }}</p>
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{% url 'dashboard:edit_question' quiz.id question.id %}" class="btn btn-warning">✏️ Tahrirlash</a>
+                <a href="{% url 'dashboard:delete_question' quiz.id question.id %}" class="btn btn-danger">🗑️ O‘chirish</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">❗ Hozircha hech qanday savol mavjud emas.</p>
+    {% endfor %}
+
+    <div class="d-flex gap-2 mt-4">
+        <a href="{% url 'dashboard:add_question' quiz.id %}" class="btn btn-primary">➕ Yangi Savol Qo‘shish</a>
+        <a href="{% url 'dashboard:index' %}" class="btn btn-secondary">⬅️ Ortga</a>
+    </div>
+</div>
+{% endblock %}

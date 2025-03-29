@@ -1,0 +1,10 @@
+{% extends 'front/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="fw-bold">📊 Test Natijalari</h3>
+    <p><b>Test:</b> {{ quiz.title }}</p>
+    <h4>Sizning natijangiz: <span class="text-primary">{{ score|floatformat:2 }}%</span></h4>
+    <a href="{% url 'main:quiz_detail' quiz.id %}" class="btn btn-secondary">🔄 Qayta ishlash</a>
+</div>
+{% endblock %}

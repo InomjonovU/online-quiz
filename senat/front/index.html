@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Online Test Platformasiga Xush Kelibsiz!</h1>
+    <p>Quyidagi testlardan birini tanlab ishlashni boshlang.</p>
+
+    <!-- Testlar -->
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Matematika</h5>
+            <p class="card-text">Matematik savollar to‘plami.</p>
+            <a href="matematika-test.html" class="btn btn-primary">Boshlash</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Informatika</h5>
+            <p class="card-text">IT va dasturlash bo‘yicha test.</p>
+            <a href="informatika-test.html" class="btn btn-primary">Boshlash</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin bo‘limi -->
+    <div class="mt-5">
+      <a href="admin.html" class="btn btn-warning">Admin Panel</a>
+    </div>
+  </div>
+
+{% endblock content %}

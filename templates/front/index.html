@@ -1,0 +1,99 @@
+{% extends 'front/base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">📚 Online Test Platformasiga Xush Kelibsiz!</h1>
+
+  <!-- Qidiruv va Filter -->
+  <form action="{% url 'main:filter' %}" method="POST" class="p-4 bg-light rounded shadow-sm">
+    {% csrf_token %}
+    <div class="row g-3 align-items-center">
+
+      <!-- Qidiruv input -->
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" name="search" placeholder="🔎 Test nomi yoki fan bo'yicha qidiring..." value="{{ request.GET.search }}">
+        </div>
+      </div>
+
+      <!-- Fan bo'yicha filter -->
+      <div class="col-lg-3">
+        <select class="form-select" name="subject">
+          <option selected disabled>📖 Fan bo'yicha filter</option>
+          <option value="Matematika">Matematika</option>
+          <option value="Fizika">Fizika</option>
+          <option value="Kimyo">Kimyo</option>
+          <option value="Biologiya">Biologiya</option>
+          <option value="Ona tili">Ona tili</option>
+          <option value="Adabiyot">Adabiyot</option>
+          <option value="Tarix">Tarix</option>
+          <option value="Ingliz tili">Ingliz tili</option>
+          <option value="Boshqa">Boshqa</option>
+        </select>
+      </div>
+
+      <!-- Sinf bo'yicha filter -->
+      <div class="col-lg-3">
+        <select class="form-select" name="class_number">
+          <option selected disabled>🎓 Sinf bo'yicha filter</option>
+          <option value="1">1-sinf</option>
+          <option value="2">2-sinf</option>
+          <option value="3">3-sinf</option>
+          <option value="4">4-sinf</option>
+          <option value="5">5-sinf</option>
+          <option value="6">6-sinf</option>
+          <option value="7">7-sinf</option>
+          <option value="8">8-sinf</option>
+          <option value="9">9-sinf</option>
+          <option value="10">10-sinf</option>
+          <option value="11">11-sinf</option>
+        </select>
+      </div>
+
+      <!-- Qidirish tugmasi -->
+      <div class="col-lg-12 text-end">
+        <button type="submit" class="btn btn-primary">🔎 Qidirish</button>
+      </div>
+
+    </div>
+</form>
+
+  <!-- Testlar -->
+  <div class="row mt-4">
+    {% for quiz in quizs %}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-lg rounded overflow-hidden border-0">
+        <!-- Rasmlar -->
+         {% if quiz.image %}
+        <img src="{{ quiz.image.url }}" class="card-img-top" alt="{{ quiz.title }}" style="height: 200px; object-fit: cover;">
+        <p>a</p>
+        {% else %}
+        <img src="https://hirepro.in/wp-content/uploads/2023/12/Online-assessment-tools-pave-the-way-for-successful-campus-hiring-drives-1024x512.jpg" class="card-img-top" alt="{{ quiz.title }}" style="height: 200px; object-fit: cover;">
+        {% endif %}
+        <!-- Card Body -->
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary fw-bold">{{ quiz.title }}</h5>
+          <p class="card-text text-muted small">{{ quiz.description|truncatechars:100 }}</p>
+
+          <ul class="list-unstyled mb-3">
+            <li><strong>📖 Fan:</strong> {{ quiz.subject }}</li>
+            <li><strong>🎓 Sinf:</strong> {{ quiz.class_number }}-sinf</li>
+          </ul>
+
+          <div class="mt-auto">
+            <a href="{% url 'main:quiz_detail' quiz.id %}" class="btn btn-success w-100 fw-bold">🎯 Boshlash</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+      <p class="text-muted fs-5">📌 Hozircha hech qanday test mavjud emas.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock content %}

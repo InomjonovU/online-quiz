@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="{% static 'assets/' %}" data-template="vertical-menu-template-free">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Bosh sahifa | Quiz</title>
+
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/boxicons.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+
+  <script src="{% static 'assets/vendor/js/helpers.js' %}"></script>
+  <script src="{% static 'assets/js/config.js' %}"></script>
+</head>
+
+<body>
+  <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme">
+    <div class="navbar-nav-left d-flex align-items-center">
+      <a class="navbar-brand fw-bold text-primary" href="#">Online Quiz UZ</a>
+      <ul class="navbar-nav ms-4">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'main:index' %}">Bosh sahifa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main:contact' %}">Bog'lanish</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard:login' %}">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+
+      <!-- Navbar -->
+
+      <!-- Navbar End -->
+
+      {% block content %}
+      {% endblock content %}
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/menu.js' %}"></script>
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
