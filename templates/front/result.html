@@ -1,10 +1,45 @@
 {% extends 'front/base.html' %}
 
 {% block content %}
-<div class="container py-4">
-    <h3 class="fw-bold">📊 Test Natijalari</h3>
-    <p><b>Test:</b> {{ quiz.title }}</p>
-    <h4>Sizning natijangiz: <span class="text-primary">{{ score|floatformat:2 }}%</span></h4>
-    <a href="{% url 'main:quiz_detail' quiz.id %}" class="btn btn-secondary">🔄 Qayta ishlash</a>
+<div class="container py-4 d-flex justify-content-center">
+    <div class="card shadow-lg border-0 rounded-3 p-4" style="max-width: 500px; width: 100%;">
+        <div class="card-body text-center">
+            <h3 class="fw-bold text-success">📊 Test Natijalari</h3>
+            <p class="text-muted"><b>Test:</b> {{ quiz.title }}</p>
+
+            <div class="my-3">
+                <h4 class="fw-bold">
+                    Sizning natijangiz:
+                    {% if score is not None %}
+                        <span class="text-primary">{{ score|floatformat:2 }}%</span>
+                    {% else %}
+                        <span class="text-danger">Natija yo‘q</span>
+                    {% endif %}
+                </h4>
+
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar
+                        {% if score and score >= 80 %}bg-success
+                        {% elif score and score >= 50 %}bg-warning
+                        {% else %}bg-danger{% endif %}
+                        fw-bold"
+                         role="progressbar"
+                         style="width: {% if score %}{{ score }}{% else %}1{% endif %}%"
+                         aria-valuenow="{{ score }}" aria-valuemin="0" aria-valuemax="100">
+                        {% if score is not None %}
+                            {{ score|floatformat:2 }}%
+                        {% else %}
+                            ❌
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="{% url 'main:quiz_detail' quiz.id %}" class="btn btn-outline-primary me-2">🔄 Qayta ishlash</a>
+                <a href="{% url 'main:index' %}" class="btn btn-success">🏠 Bosh sahifaga qaytish</a>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
