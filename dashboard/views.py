@@ -96,7 +96,6 @@ def edit_question(request, quiz_id, question_id):
 
 
 @login_required(login_url='dashboard:login')
-# 🗑️ Savolni o‘chirish
 def delete_question(request, quiz_id, question_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     question = get_object_or_404(Question, id=question_id, quiz=quiz)

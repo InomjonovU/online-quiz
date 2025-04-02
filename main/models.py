@@ -37,3 +37,6 @@ class Contact(models.Model):
     email = models.EmailField()
     message = models.TextField()
     time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    class Meta:
+        ordering = ['-id']

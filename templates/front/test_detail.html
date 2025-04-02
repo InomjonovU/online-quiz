@@ -4,10 +4,10 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold text-primary">{{ quiz.title }}</h2>
-        <p id="timer" class="fs-5 text-danger fw-bold">⏳ 15:00</p>
+        <p id="timer" class="fs-5 text-danger fw-bold border border-danger px-3 py-1 rounded">⏳ 15:00</p>
     </div>
 
-    <div class="alert alert-info">
+    <div class="alert alert-info shadow-sm">
         <p class="mb-0">{{ quiz.description }}</p>
     </div>
 
@@ -15,33 +15,44 @@
         {% csrf_token %}
 
         {% for question in questions %}
-        <div class="card shadow-sm mb-3 border-0">
+        <div class="card shadow-lg border-primary rounded-3 mb-4">
             <div class="card-body">
-                <h5 class="fw-bold">{{ forloop.counter }}. {{ question.text }}</h5>
+                <h5 class="fw-bold text-dark">{{ forloop.counter }}. {{ question.text }}</h5>
                 <div class="mt-2">
-                    <div class="form-check">
+                    {% if question.option_a %}
+                    <div class="form-check option-hover">
                         <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="A" id="q{{ question.id }}_A">
                         <label class="form-check-label" for="q{{ question.id }}_A">A) {{ question.option_a }}</label>
                     </div>
-                    <div class="form-check">
+                    {% endif %}
+
+                    {% if question.option_b %}
+                    <div class="form-check option-hover">
                         <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="B" id="q{{ question.id }}_B">
                         <label class="form-check-label" for="q{{ question.id }}_B">B) {{ question.option_b }}</label>
                     </div>
-                    <div class="form-check">
+                    {% endif %}
+
+                    {% if question.option_c %}
+                    <div class="form-check option-hover">
                         <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="C" id="q{{ question.id }}_C">
                         <label class="form-check-label" for="q{{ question.id }}_C">C) {{ question.option_c }}</label>
                     </div>
-                    <div class="form-check">
+                    {% endif %}
+
+                    {% if question.option_d %}
+                    <div class="form-check option-hover">
                         <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="D" id="q{{ question.id }}_D">
                         <label class="form-check-label" for="q{{ question.id }}_D">D) {{ question.option_d }}</label>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
 
         <div class="text-center mt-4">
-            <button type="submit" class="btn btn-success btn-lg px-5 fw-bold">✅ Testni Yakunlash</button>
+            <button type="submit" class="btn btn-warning btn-lg px-5 fw-bold shadow-lg">✅ Testni Yakunlash</button>
         </div>
     </form>
 </div>
@@ -54,7 +65,11 @@
     function updateTimer() {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        timerDisplay.innerHTML = `⏳ ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        timerDisplay.innerHTML = `⏳ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeLeft <= 10) {
+            timerDisplay.classList.add("bg-danger", "text-white", "fw-bold");
+        }
 
         if (timeLeft <= 0) {
             document.getElementById("quiz-form").submit();
@@ -66,4 +81,13 @@
 
     updateTimer();
 </script>
+
+<!-- Custom CSS -->
+<style>
+    .option-hover:hover {
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+</style>
 {% endblock %}
